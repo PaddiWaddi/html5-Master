@@ -22,11 +22,11 @@ gulp.task('styles', function() {
     .pipe(reload({stream:true}));
 });
 
-//Watches JS
+//Watches changes
 gulp.task('watch', function() {
     gulp.watch('js/*.js', ['scripts', browserSync.reload]);
     gulp.watch('sass/sass/*.scss', ['styles']);
-    gulp.watch('../**/*.html', ['move', browserSync.reload]);
+    gulp.watch('../**/*.html', browserSync.reload);
 });
 
 gulp.task('browser-sync', function() {
