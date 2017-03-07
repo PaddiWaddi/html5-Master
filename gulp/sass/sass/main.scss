@@ -1,0 +1,281 @@
+body, html{
+	width: 100%;
+	height: 100%;
+
+	background-color: $white;
+	color: #5c5c5c;
+
+	@include font-normal;
+
+	overflow: overlay;
+}
+
+.noscroll{
+	overflow: hidden;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-thumb:vertical {
+  margin: 5px;
+  background-color: #999;
+  -webkit-border-radius: 5px;
+}
+
+*::-webkit-scrollbar-button:start:decrement,
+*::-webkit-scrollbar-button:end:increment {
+  height: 5px;
+  display: block;
+}
+
+main{
+	//padding-top: 64px;
+}
+
+#image-zoom-overlay {
+	overflow: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    background-color: rgba(248, 248, 248, 0.9);
+	text-align: center;
+
+	@include transition(backdrop-filter .2s, opacity .3s);
+
+	&.collapsed{
+		opacity: 0;
+		backdrop-filter: blur(0);
+	}
+
+	.back-btn{
+		position: fixed;
+		right: 21px;
+		top: 21px;
+		cursor: pointer;
+		img{
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	#zoom-image{
+		max-width: 80%;
+		padding: 64px;
+	}
+}
+
+a.block-link{
+	display: block;
+	text-decoration: none;
+	color: $black;
+}
+
+.profile-pic{
+	@include border-radius(50%);
+	overflow: hidden;
+	img{
+		width: 100%;
+	}
+}
+
+
+#splash{
+	position: fixed;
+	z-index: 10000;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	width: 100%;
+	height: 100%;
+
+	.logo-wrap{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		.logo{
+			width: 300px;
+			height: 328px;
+		}
+	}
+
+	-webkit-backdrop-filter: blur(10px);
+  	backdrop-filter: blur(5px);
+	background-color: rgba(248, 248, 248, 0.8);
+
+	.continue-btn{
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		text-align: center;
+		cursor: pointer;
+
+		.title{
+			margin-bottom: 32px;
+		}
+		.arrow-down{
+			width: 20px;
+			margin-bottom: 48px;
+		}
+	}
+
+
+	.logo{
+		width: 100%;
+		height: 100%;
+		position: relative;
+
+
+		svg{
+		  height: 328px;
+		  position: absolute;
+		  margin: auto;
+		  left: 0;
+		  right: 0;
+		  bottom: 0;
+		  top: 0;
+		  overflow: visible;
+		  .a{
+		    @include animation(letterFade 1s both 5s);
+		    transform-origin: 50% 50%;
+		  }
+		  .l{
+		    @include animation(letterFade 1s both 5.2s);
+		    transform-origin: 50% 50%;
+		  }
+		  .i{
+		    @include animation(letterFade 1s both 5.4s);
+		    transform-origin: 50% 50%;
+		  }
+		  .v{
+		    @include animation(letterFade 1s both 5.6s);
+		    transform-origin: 50% 50%;
+		  }
+		  .e{
+		    @include animation(letterFade 1s both 5.8s);
+		    transform-origin: 50% 50%;
+		  }
+
+		  #Heart{
+		    $blue: #26c8a8;
+		    $green: #83d650;
+		    $turkoise: #d5ffc8;
+		    #HeartInner{
+		      fill: $turkoise;
+		      @include animation(HeartInInner both 6s);
+		    }
+		    #HeartRight{
+		      fill: $green;
+		      stroke: #000;
+		      stroke-width: .2px;
+		      @include animation(HeartInRight both 6s );
+		    }
+		    #HeartLeft{
+		      fill: $blue;
+		      stroke: #000;
+		      stroke-width: .2px;
+		      @include animation(HeartInLeft both 6s);
+		    }
+		  }
+		}
+
+		@include keyframes(letterFade){
+		  0%{
+		    opacity: 0;
+		    transform: translateY(5px);
+		  }
+		  100%{
+		    opacity: 1;
+		  }
+		}
+
+		@include keyframes(HeartInRight){
+		  0%{
+		      stroke-dasharray: 0, 103;
+		      fill: transparent;
+		  }
+		  50%{
+		      stroke-dasharray: 103, 103;
+		      fill: transparent;
+		      stroke: #000;
+		  }
+		  100%{
+		    stroke: transparent;
+		  }
+		}
+
+		@include keyframes(HeartInLeft){
+		  0%{
+		      stroke-dasharray: 0, 102;
+		      stroke-dashoffset: 51;
+		      fill: transparent;
+		  }
+		  50%{
+		      stroke-dasharray: 102, 0;
+		      stroke-dashoffset: 51;
+		      fill: transparent;
+		      stroke: #000;
+		  }
+		  100%{
+		      stroke: transparent;
+		  }
+		}
+		@include keyframes(HeartInInner){
+		  0%{
+		      fill: transparent;
+		  }
+		  50%{
+		      fill: transparent;
+		  }
+		  100%{
+		  }
+		}
+	}
+}
+
+footer{
+	margin-top: 128px;
+	padding-bottom: 64px;
+	position: relative;
+	.sources{
+		line-height: 2;
+		
+		a{
+			font-size: 10px;
+			margin-bottom: 8px;
+		}
+	}
+	.container{
+		border-top: solid 1px rgba(64, 64, 64, 0.25);
+		min-height: 150px;
+	}
+	img{
+		width:64px;
+		background-color: $white;
+		position: absolute;
+		margin-left: auto;
+		margin-right: auto;
+		top: -16px;
+		left: 0;
+		right: 0;
+		padding-left: 32px;
+		padding-right: 32px;
+		box-sizing: content-box;
+	}
+}

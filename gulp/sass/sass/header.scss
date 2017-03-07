@@ -1,0 +1,300 @@
+header#appbar{
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    overflow-y: auto;
+
+    transition: height .3s ease-out, backdrop-filter .5s, -webkit-backdrop-filter .5s, background-color .3s;;
+
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    background-color: rgba(248, 248, 248, 0.7);
+    //border-bottom: solid 1px $warm-grey;
+
+    &:not(.expanded),&.collapsed{
+        height: 64px;
+
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+
+        overflow: hidden;
+
+        //background-color: rgba(64, 64, 64, 0.9);
+
+        nav{
+            display: none;
+        }
+
+
+    }
+    &:not(.collapsed),&.expanded{
+        .menu{
+            .back-btn{
+                visibility: hidden;
+                opacity: 0;
+            }
+        }
+        .authors{
+            opacity: 0;
+        }
+    };
+
+    .menu{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 63px;
+
+        -webkit-app-region: drag;
+
+        .back-btn{
+            position: absolute;
+            padding: 17px;
+            left: 0;
+            cursor: pointer;
+            transition: opacity .3s;
+
+            span {
+                vertical-align: top;
+                line-height: 26px;
+                margin-left: 8px;
+            }
+        }
+
+        img.logo{
+            height: 14px;
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+        .title{
+            margin-left: 8px;
+            margin-right: 8px;
+            color: $black;
+            font-size: 18px;
+        }
+        .chevron-expand{
+            margin-left: 8px;
+            margin-right: 8px;
+            margin-bottom: 2px;
+            width: 10px;
+        }
+    }
+
+    nav{
+        width: 100%;
+        height: 100%;
+        padding: 64px;
+        box-sizing: border-box;
+
+        display: flex;
+        justify-content: center;
+
+        &>ul{
+            width: 300px;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            position: relative;
+        }
+        li {
+            list-style-type: none;
+            border-left: 1.5px solid $black;
+            margin-left: 28px;
+        }
+        li a {
+            padding-left: 32px;
+            padding-bottom: 23px;
+            position: relative;
+            @include font-normal;
+            font-size: 18px;
+            display: block;
+            top: -4px;
+            color: $black;
+            text-decoration: none;
+
+            &:hover::before{
+                background-color: #7f7f7f!important;
+
+                transition: background-color .3s;
+            }
+        }
+        li a::before {
+            content:'';
+            display: block;
+            position: absolute;
+            margin-bottom: 13px;
+            top: 4px;
+            left: -8px;
+            background-color: $white;
+            bottom: 50%;
+            width: 16px;
+            height: 16px;
+            border: 1.5px solid $black;
+            border-radius: 100%;
+        }
+        li.unread{
+            a{
+                @include font-bold;
+            }
+
+            &>a:before{
+                border: 1.5px solid $black;
+                background-color: $tealish;
+            }
+        }
+
+        li.active>a:before{
+            background-color: #7f7f7f;
+        }
+        ul > li:last-child {
+            border-left: 2px solid transparent;
+        }
+    }
+
+    .authors{
+        position: absolute;
+        right: 0;
+        .author, .commentator{
+            display: inline-block;
+            width: 48px;
+            height: 48px;
+            margin-right: 8px;
+
+            border: solid 1.5px $tealish;
+
+            cursor: pointer;
+
+            @include transition(transform .2s, filter .2s);
+
+            @include animation(enter .7s cubic-bezier(.46,.49,.4,1.22) backwards);
+
+            &:hover{
+                transform: scale(1.2,1.2);
+            }
+            &:active{
+                transform: scale(1.1,1.1);
+            }
+
+            &:nth-child(1){
+                @include animation-delay(.2s);
+            }
+            &:nth-child(2){
+                @include animation-delay(.4s);
+            }
+            &:nth-child(3){
+                @include animation-delay(.6s);
+            }
+
+            &.exit{
+                @include animation(exit .3s);
+            }
+
+            @include keyframes(enter){
+                0%{
+                    transform: translate3d(200px,0,0);
+                }
+                100%{
+                    transform: none;
+                }
+            }
+
+            @include keyframes(exit){
+                0%{
+                    transform: none;
+                }
+                100%{
+                    transform: translate3d(200px,0,0);
+                }
+            }
+        }
+
+        .commentator{
+            width: 36px;
+            height: 36px;
+            margin-right: 14px;
+            margin-left: 2px;
+            margin-bottom: 6px;
+        }
+    }
+}
+
+
+
+#author-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1100;
+
+    backdrop-filter: blur(20px);
+    background-color: rgba(248, 248, 248, 0.7);
+
+    opacity: 1;
+    @include transition(opacity .5s, backdrop-filter .5s);
+    &.collapsed{
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    overflow: auto;
+
+    .top-bar{
+        height: 64px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .logo{
+            height: 18px;
+        }
+        .back-btn{
+            position: fixed;
+            right: 21px;
+            top: 21px;
+            cursor: pointer;
+            img{
+                width: 30px;
+                height: 30px;
+            }
+
+
+        }
+    }
+
+    .profile-pic{
+        width: 200px;
+        height: 200px;
+        margin: 128px auto 32px auto;
+        img{
+        }
+    }
+    #name{
+        margin-top: 32px;
+        font-size: 30px;
+        text-align: center;
+        @include font-bold;
+    }
+    .subtitle{
+        text-align: center;
+        margin-top: 16px;
+        font-size: 18px;
+        @include font-light;
+    }
+    #comment{
+        margin-top: 64px;
+        margin-bottom: 64px;
+        font-size: 18px;
+        line-height: 1.5;
+        @include font-normal;
+
+    }
+}
